@@ -81,22 +81,3 @@ function Product() {
 }
 
 export default Product;
-
-{/* <table>
-<tr>
-    <th>id</th>
-    <th>price</th>
-    <th>title</th>
-    <th>category</th>
-</tr>
-{data.map((item, key) => {
-    return (
-        <tr key={key}>
-            <td>{item.id}</td>
-            <td>{item.price}</td>
-            <td>{item.title}</td>
-            <td>{item.category}</td>
-        </tr>
-    )
-})}
-</table> */}

@@ -40,6 +40,18 @@ function Product() {
 
     }
 
+    const handleSearch = (value) => {
+        axios({
+            method:'get',
+            url:'https://fakestoreapi.com/products'
+        }).then(resp => {
+
+            setData(resp.data.filter((curdata) =>{
+                return curdata.title.toLowerCase() == value.toLowerCase()
+            }))
+        })
+    }
+
     useEffect(() => {
         getdata()
 
@@ -53,7 +65,7 @@ function Product() {
                 <div><input type='text' 
                 placeholder='search..'
                 onChange={(event)=>{
-                    setSearch(event.target.value)
+                    handleSearch(event.target.value)
                 }}/>
                 <Button className="btn btn-secondary width-40px m-3" onClick={()=>filterResult("men's clothing")}>men's clothing</Button>
                 <Button className="btn btn-secondary width-40px m-3" onClick={()=>filterResult("women's clothing")}>women's clothing</Button>

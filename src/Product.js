@@ -5,8 +5,8 @@ import { Card, Button } from "react-bootstrap"
 function Product() {
 
     const [data, setData] = useState([])
+    const [value, setValue] = useState("")
 
-    // const [result, setResult]=useState([])
 
     const [search, setSearch] = useState("")
 
@@ -20,13 +20,23 @@ function Product() {
             )
         })
     }
-    const filterResult = (cat) => {
-        const result = data.filter((curdata)=>{
-            return curdata.category===cat;
-        });
-        getdata()
-        setData(result)
-        console.log("result",result)
+    const filterResult = (value) => {
+
+        axios({
+            method:'get',
+            url:`https://fakestoreapi.com/products`
+        }).then(resp => {
+
+            setData(resp.data.filter((curdata) =>{
+                return curdata.category == value
+            }))
+        })
+
+        //     return curdata.category===cat;
+        // // });
+        // // getdata()
+        // // setData(result)
+        // // console.log("result",result)
 
     }
 
@@ -34,8 +44,6 @@ function Product() {
         getdata()
 
     }, [])
-
-
 
     return (
         <div className="App">

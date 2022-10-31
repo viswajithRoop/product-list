@@ -21,13 +21,14 @@ function Product() {
         })
     }
     const filterResult = (value) => {
-
         axios({
             method:'get',
             url:`https://fakestoreapi.com/products`
         }).then(resp => {
-
-            setData(resp.data.filter((curdata) =>{
+            if (value == "all"){
+                return getdata()
+            }
+            else setData(resp.data.filter((curdata) =>{
                 return curdata.category == value
             }))
         })
@@ -47,7 +48,7 @@ function Product() {
         }).then(resp => {
 
             setData(resp.data.filter((curdata) =>{
-                return curdata.title.toLowerCase() == value.toLowerCase()
+                return curdata.title.toLowerCase().includes(value.toLowerCase())
             }))
         })
     }
@@ -61,19 +62,23 @@ function Product() {
         <div className="App">
             <div>
                 <h1 className='bg-primary text-white'>Product List</h1>
-                <div>
-                <div><input type='text' 
+                <div className='row'>
+                <div className='col-2'>
+                <input   className='m-3' type='text' 
                 placeholder='search..'
                 onChange={(event)=>{
                     handleSearch(event.target.value)
                 }}/>
-                <Button className="btn btn-secondary width-40px m-3" onClick={()=>filterResult("men's clothing")}>men's clothing</Button>
-                <Button className="btn btn-secondary width-40px m-3" onClick={()=>filterResult("women's clothing")}>women's clothing</Button>
-                <Button className="btn btn-secondary width-40px m-3" onClick={()=>filterResult("jewelery")}>jewelery</Button>
-                <Button className="btn btn-secondary width-40px m-3" onClick={()=>filterResult("electronics")}>electronics</Button>
-
                 </div>
-                
+
+                <div className='col-10'>
+                <Button className="btn btn-secondary m-3 " onClick={()=>filterResult("all")}>All products</Button>
+                <Button className="btn btn-secondary m-3 " onClick={()=>filterResult("men's clothing")}>Men's clothing</Button>
+                <Button className="btn btn-secondary m-3" onClick={()=>filterResult("women's clothing")}>Women's clothing</Button>
+                <Button className="btn btn-secondary m-3 " onClick={()=>filterResult("jewelery")}>Jewelery</Button>
+                <Button className="btn btn-secondary m-3 " onClick={()=>filterResult("electronics")}>Electronics</Button>
+                </div>
+
                 </div>
                     {data.map((item, key) => {
                         return (
